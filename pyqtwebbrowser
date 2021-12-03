@@ -1,0 +1,77 @@
+import sys
+from sys import argv 
+from PyQt5.QtCore import QUrl
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+#                                 Web Browser (HTML Frame)
+from PyQt5.QtWidgets import *
+class Window(QMainWindow):
+  def __init__(ego, *args, **kwargs):
+     super(Window, ego).__init__(*args, **kwargs)
+     
+     ego.browser = QWebEngineView()
+     ego.browser.setUrl(QUrl('https://www.duckduckgo.com'))
+     ego.browser.urlChanged.connect(ego.update_AddressBar)
+     ego.setCentralWidget(ego.browser)
+     ego.status_bar = QStatusBar()
+     ego.setStatusBar(ego.status_bar)
+     ego.navigation_bar = QToolBar('Navigation Toolbar')
+     ego.addToolBar(ego.navigation_bar)
+     back_button = QAction("Back", ego)
+     back_button.setStatusTip('Go to previous page you visited')
+     back_button.triggered.connect(ego.browser.back)
+     ego.navigation_bar.addAction(back_button)
+     refresh_button = QAction("Refresh", ego)
+     refresh_button.setStatusTip('Refresh this page')
+     refresh_button.triggered.connect(ego.browser.reload)
+     ego.navigation_bar.addAction(refresh_button)
+     next_button = QAction("Next", ego)
+     next_button.setStatusTip('Go to next page')
+     next_button.triggered.connect(ego.browser.forward)
+     ego.navigation_bar.addAction(next_button)
+     home_button = QAction("Home", ego)
+     home_button.setStatusTip('Go to home page (Google page)')
+     home_button.triggered.connect(ego.go_to_home)
+     ego.navigation_bar.addAction(home_button)
+     ego.navigation_bar.addSeparator()
+     ego.URLBar = QLineEdit()
+     ego.URLBar.returnPressed.connect(lambda: ego.go_to_URL(QUrl(ego.URLBar.text())))  # This specifies what to do when enter is pressed in the Entry field
+     ego.navigation_bar.addWidget(ego.URLBar)
+     ego.addToolBarBreak()
+     # Adding another toolbar which contains the bookmarks
+     bookmarks_toolbar = QToolBar('Bookmarks', ego)
+     ego.addToolBar(bookmarks_toolbar)
+     pythongeeks = QAction("mx linux", ego)
+     pythongeeks.setStatusTip("add site")
+     pythongeeks.triggered.connect(lambda: ego.go_to_URL(QUrl("https://mxlinux.org/mx-linux-blog/")))
+     bookmarks_toolbar.addAction(pythongeeks)
+     facebook = QAction("distrowatch", ego)
+     facebook.setStatusTip("add")
+     facebook.triggered.connect(lambda: ego.go_to_URL(QUrl("https://distrowatch.com/")))
+     bookmarks_toolbar.addAction(facebook)
+     linkedin = QAction("SDR-RTL", ego)
+     linkedin.setStatusTip("Go SDR-RTL")
+     linkedin.triggered.connect(lambda: ego.go_to_URL(QUrl("https://www.rtl-sdr.com/big-list-rtl-sdr-supported-software/")))
+     bookmarks_toolbar.addAction(linkedin)
+     instagram = QAction("https://extract.bbbike.org/", ego)
+     instagram.setStatusTip("Go to map")
+     instagram.triggered.connect(lambda: ego.go_to_URL(QUrl("")))
+     bookmarks_toolbar.addAction(instagram)
+     twitter = QAction("openstreets", ego)
+     twitter.setStatusTip('Go to streets')
+     twitter.triggered.connect(lambda: ego.go_to_URL(QUrl("https://www.openstreetmap.org")))
+     bookmarks_toolbar.addAction(twitter)
+     ego.show()
+  def go_to_home(ego):
+     ego.browser.setUrl(QUrl('https://www.duckduckgo.com/'))
+  def go_to_URL(ego, url: QUrl):
+     if url.scheme() == '':
+        url.setScheme('https://')
+     ego.browser.setUrl(url)
+     ego.update_AddressBar(url)
+  def update_AddressBar(ego, url):
+     ego.URLBar.setText(url.toString())
+     ego.URLBar.setCursorPosition(0)
+app = QApplication(argv)
+app.setApplicationName('PythonGeeks Web Browser')
+window = Window()
+app.exec_()
