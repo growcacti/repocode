@@ -1,0 +1,21 @@
+fr_buttons = tk.Frame(f1, relief=tk.RAISED, bd=2)
+fr_buttons.grid(row=0, column=0, sticky='ns')
+btn_dir = tk.Button(fr_buttons, text='New Directory',  command= lambda:newdirlist()
+btn_dir.grid(row=0, column=0, sticky='ew', padx=5, pady=5)
+btn_open = tk.Button(fr_buttons, text='Save As...',  command= lambda:save_file(txt, frame))
+btn_open.grid(row=1, column=0, sticky='ew', padx=5)
+
+btn_run = tk.Button(fr_buttons, text='Open',  command= lambda:runpy()
+btn_run.grid(row=2, column=0, sticky='ew', padx=5, pady=5)
+btn_save = tk.Button(fr_buttons, text='Save As...',  command= lambda:save_file(txt, frame1)
+btn_save.grid(row=3, column=0, sticky='ew', padx=5)
+
+sp = tk.Spin(f1, from_ = 1 to 32)
+sp.grid(row=5, column=6)
+btn_send = tk.Button(fr_buttons, text='Send Data',  command= lambda:sendtxt(txt+sp.get(), f+sp.get())
+btn_send.grid(row=6, column=0, sticky='ew', padx=5, pady=5)
+
+btn_sys = tk.Button(fr_buttons, text='init',  command= lambda:opensystem()
+btn_sys.grid(row=7, column=0, sticky='ew', padx=5, pady=5)
+btn_show3 = tk.Button(fr_buttons, text='Show',  command= lambda:showcontent)
+btn_show.grid(row=8, column=0, sticky='ew', padx=5)
