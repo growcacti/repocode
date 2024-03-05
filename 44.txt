@@ -1,0 +1,58 @@
+import tkinter as tk
+from tkinter import *
+import Math
+r = Tk()
+
+display = Entry(r)
+display1 = Entry(r)
+display.grid(row=11, columnspan=6, sticky=W + E)
+display1.grid(row=29, columnspan=6, sticky=W + E)
+
+
+label0 = Label(r, text="Enter the value of the equation in the format 'x1'x + 'y1'y = a and 'x2'x + 'y2'y = b.")
+label1 = Label(r, text="x1 Value : ")
+label2 = Label(r, text="y1 Value : ")
+label3 = Label(r, text="x2 Value : ")
+label4 = Label(r, text="y2 Value : ")
+label5 = Label(r, text="a Value : ")
+label6 = Label(r, text="b Value : ")
+label7 = Label(r)
+label8 = Label(r)
+label9 = Label(r)
+label10 = Label(r)
+label11 = Label(r)
+
+entry1 = Entry(r)
+entry2 = Entry(r)
+entry3 = Entry(r)
+entry4 = Entry(r)
+entry5 = Entry(r)
+entry6 = Entry(r)
+
+label0.grid(row=0, columnspan=6)
+label1.grid(row=1, column=0)
+label2.grid(row=1, column=2)
+label3.grid(row=2, column=0)
+label4.grid(row=2, column=2)
+label5.grid(row=1, column=4)
+label6.grid(row=2, column=4)
+label7.grid(row=10, column=0)
+label9.grid(row=10, column=1)
+label10.grid(row=12, columnspan=6)
+label11.grid(row=10, column=2)
+
+entry1.grid(row=1, column=1)
+entry2.grid(row=2, column=1)
+entry3.grid(row=1, column=3)
+entry4.grid(row=2, column=3)
+entry5.grid(row=1, column=5)
+entry6.grid(row=2, column=5)
+
+button1 = Button(label7, text="Show Entries", command=show_entry)
+button2 = Button(label9, text="Show Graph", command=show_graph)
+button3 = Button(label11, text="Show Solution", command=solve_eq)
+button1.pack()
+button2.pack()
+button3.pack()
+
+r.mainloop()
