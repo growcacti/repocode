@@ -1,0 +1,4 @@
+find . -name '*.jpg' | xargs cp -t Pictures2/
+
+
+find . -name '*.jpg' | xargs cp -t /media/jh/Python_Backup/a
