@@ -1,0 +1,1443 @@
+
+get GNU
+Fight DRM, Join the Free Software Foundation
+
+    Anasayfa
+    Donanım
+    GNU/Linux
+
+Python GUI examples (Tkinter Tutorial)
+By filozof on 17 Şubat 2018 in GNU/Linux İpuçları
+
+In this tutorial, we will learn how to develop graphical user interfaces by writing some Python GUI examples using Tkinter package. Tkinter package is shipped with Python as a standard package, so we don’t need to install anything to use it. Tkinter package is a very powerful package. If you already have installed Python, you may use IDLE which is the integrated IDE that is shipped with Python, this IDE is written using Tkinter. Sounds Cool!! We will use Python 3.6, so if you are using Python 2.x, it’s strongly recommended to switch to Python 3.x unless you know the language changes so you can adjust the code to run without errors. I assume that you a little background about Python basics to help you understand what we are doing. We will start by creating a window then we will learn how to add widgets such as buttons, combo boxes, etc, then we will play with their properties, so let’s get started.
+
+Create your first GUI application
+
+First, we will import Tkinter package and create a window and set its title:
+
+from tkinter import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.mainloop()
+
+The result will be like this:
+
+Awesome!! Our application just works.
+
+The last line which calls mainloop function, this function calls the endless loop of the window, so the window will wait for any user interaction till we close it.
+
+If you forget to call the mainloop function, nothing will appear to the user.
+Create a label widget
+
+To add a label to our previous example, we will create a label using the label class like this:
+
+lbl = Label(window, text="Hello")
+
+Then we will set its position on the form using the grid function and give it the location like this:
+
+lbl.grid(column=0, row=0)
+
+So the complete code will be like this:
+
+from tkinter import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+lbl = Label(window, text="Hello")
+
+lbl.grid(column=0, row=0)
+
+window.mainloop()
+
+And this is the result:
+
+Without calling the grid function for the label, it won’t show up.
+Set label font size
+
+You can set the label font so you can make it bigger and maybe bold. You can also change the font style.
+
+To do so, you can pass the font parameter like this:
+
+lbl = Label(window, text="Hello", font=("Arial Bold", 50))
+
+Note that the font parameter can be passed to any widget to change its font not labels only.
+
+Great, but the window is so small, we can even see the title, what about setting the window size?
+Setting window size
+
+We can set the default window size using geometry function like this:
+
+window.geometry('350x200')
+
+The above line sets the window width to 350 pixels and the height to 200 pixels.
+
+Let’s try adding more GUI widgets like buttons and see how to handle button click event.
+Adding a button widget
+
+Let’s start by adding the button to the window, the button is created and added to the window the same as the label:
+
+btn = Button(window, text="Click Me")
+
+btn.grid(column=1, row=0)
+
+So our window will be like this:
+
+from tkinter import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+lbl = Label(window, text="Hello")
+
+lbl.grid(column=0, row=0)
+
+btn = Button(window, text="Click Me")
+
+btn.grid(column=1, row=0)
+
+window.mainloop()
+
+The result looks like this:
+
+Note that we place the button on the second column of the window which is 1. If you forget and place the button on the same column which is 0, it will show the button only, since the button will be on the top of the label.
+Change button foreground and background colors
+
+You can change foreground for a button or any other widget using fg property.
+
+Also, you can change the background color for any widget using bg property.
+
+btn = Button(window, text="Click Me", bg="orange", fg="red")
+
+Now, if you tried to click on the button, nothing happens because the click event of the button isn’t written yet.
+Handle button click event
+
+First, we will write the function that we need to execute when the button is clicked:
+
+def clicked():
+
+lbl.configure(text="Button was clicked !!")
+
+Then we will wire it with the button by specifying the function like this:
+
+btn = Button(window, text=“Click Me”, command=clicked)
+
+Note that, we typed clicked only not clicked() with parentheses.
+
+Now the full code will be like this:
+
+from tkinter import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+lbl = Label(window, text="Hello")
+
+lbl.grid(column=0, row=0)
+
+def clicked():
+
+lbl.configure(text="Button was clicked !!")
+
+btn = Button(window, text="Click Me", command=clicked)
+
+btn.grid(column=1, row=0)
+
+window.mainloop()
+
+And when we click the button, the result as expected:
+
+Cool!!
+Get input using Entry class (Tkinter textbox)
+
+In the previous Python GUI examples, we saw how to add simple widgets, now let’s try getting the user input using Tkinter Entry class (Tkinter textbox).
+
+You can create a textbox using Tkinter Entry class like this:
+
+txt = Entry(window,width=10)
+
+Then you can add it to the window using grid function as usual
+
+So our window will be like this:
+
+from tkinter import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+lbl = Label(window, text="Hello")
+
+lbl.grid(column=0, row=0)
+
+txt = Entry(window,width=10)
+
+txt.grid(column=1, row=0)
+
+def clicked():
+
+lbl.configure(text="Button was clicked !!")
+
+btn = Button(window, text="Click Me", command=clicked)
+
+btn.grid(column=2, row=0)
+
+window.mainloop()
+
+And the result will be like this:
+
+Now, if you click the button, it will show the same old message, what about showing the entered text on the Entry widget?
+
+First, you can get entry text using get function. So we can write this code to our clicked function like this:
+
+def clicked():
+
+res = "Welcome to " + txt.get()
+
+lbl.configure(text= res)
+
+If you click the button and there is a text on the entry widget, it will show “Welcome to” concatenated with the entered text.
+
+And this is the complete code:
+
+from tkinter import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+lbl = Label(window, text="Hello")
+
+lbl.grid(column=0, row=0)
+
+txt = Entry(window,width=10)
+
+txt.grid(column=1, row=0)
+
+def clicked():
+
+res = "Welcome to " + txt.get()
+
+lbl.configure(text= res)
+
+btn = Button(window, text="Click Me", command=clicked)
+
+btn.grid(column=2, row=0)
+
+window.mainloop()
+
+Run the above code and check the result:
+
+Awesome!!
+
+Every time we run the code, we need to click on the entry widget to set focus to write the text, what about setting the focus automatically?
+Set focus to entry widget
+
+That’s super easy, all we need to do is to call focus function like this:
+
+txt.focus()
+
+And when you run your code, you will notice that the entry widget has the focus so you can write your text right away.
+Disable entry widget
+
+To disable entry widget, you can set the state property to disabled:
+
+txt = Entry(window,width=10, state='disabled')
+
+Now, you won’t be able to enter any text.
+
+Add a combobox widget
+
+To add a combobox widget, you can use the Combobox class from ttk library like this:
+
+from tkinter.ttk import *
+
+combo = Combobox(window)
+
+Then you can add your values to the combobox.
+
+from tkinter import *
+
+from tkinter.ttk import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+combo = Combobox(window)
+
+combo['values']= (1, 2, 3, 4, 5, "Text")
+
+combo.current(1) #set the selected item
+
+combo.grid(column=0, row=0)
+
+window.mainloop()
+
+As you can see, we add the combobox items using the values tuble.
+
+To set the selected item, you can pass the index of the desired item to the current function.
+
+To get the select item, you can use the get function like this:
+
+combo.get()
+Add a Checkbutton widget (Tkinter checkbox)
+
+To create a checkbutton widget, you can use Checkbutton class like this:
+
+chk = Checkbutton(window, text='Choose')
+
+Also, you can set the checked state by passing the check value to the Checkbutton like this:
+
+from tkinter import *
+
+from tkinter.ttk import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+chk_state = BooleanVar()
+
+chk_state.set(True) #set check state
+
+chk = Checkbutton(window, text='Choose', var=chk_state)
+
+chk.grid(column=0, row=0)
+
+window.mainloop()
+
+Check the result:
+
+Set check state of a Checkbutton
+
+Here we create a variable of type BooleanVar which is not a standard Python variable, it’s a Tkinter variable, and then we pass it to the Checkbutton class to set the check state as the highlighted line in the above example.
+
+You can set the Boolean value to false to make it unchecked.
+
+Also, you can use IntVar instead of BooleanVar and set the value to 0 or 1.
+
+chk_state = IntVar()
+
+chk_state.set(0) #uncheck
+
+chk_state.set(1) #check
+
+These examples give the same result as the BooleanVar.
+Add radio buttons widgets
+
+To add radio buttons, simply you can use RadioButton class like this:
+
+rad1 = Radiobutton(window,text='First', value=1)
+
+Note that you should set the value for every radio button with a different value, otherwise, they won’t work.
+
+from tkinter import *
+
+from tkinter.ttk import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+rad1 = Radiobutton(window,text='First', value=1)
+
+rad2 = Radiobutton(window,text='Second', value=2)
+
+rad3 = Radiobutton(window,text='Third', value=3)
+
+rad1.grid(column=0, row=0)
+
+rad2.grid(column=1, row=0)
+
+rad3.grid(column=2, row=0)
+
+window.mainloop()
+
+The result of the above code looks like this:
+
+Also, you can set the command of any of these radio buttons to a specific function, so if the user clicks on any one of them, it runs the function code.
+
+This is an example:
+
+rad1 = Radiobutton(window,text='First', value=1, command=clicked)
+
+def clicked():
+
+# Do what you need
+
+Pretty simple!!
+Get radio button value (selected radio button)
+
+To get the currently selected radio button or the radio button value, you can pass the variable parameter to the radio buttons and later you can get its value.
+
+from tkinter import *
+
+from tkinter.ttk import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+selected = IntVar()
+
+rad1 = Radiobutton(window,text='First', value=1, variable=selected)
+
+rad2 = Radiobutton(window,text='Second', value=2, variable=selected)
+
+rad3 = Radiobutton(window,text='Third', value=3, variable=selected)
+
+def clicked():
+
+print(selected.get())
+
+btn = Button(window, text="Click Me", command=clicked)
+
+rad1.grid(column=0, row=0)
+
+rad2.grid(column=1, row=0)
+
+rad3.grid(column=2, row=0)
+
+btn.grid(column=3, row=0)
+
+window.mainloop()
+
+Every time you select a radio button, the value of the variable will be changed to the value of the selected radio button.
+Add a ScrolledText widget (Tkinter textarea)
+
+To add a ScrolledText widget, you can use the ScrolledText class like this:
+
+from tkinter import scrolledtext
+
+txt = scrolledtext.ScrolledText(window,width=40,height=10)
+
+Here we specify the width and the height of the ScrolledText widget, otherwise, it will fill the entire window.
+
+from tkinter import *
+
+from tkinter import scrolledtext
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+txt = scrolledtext.ScrolledText(window,width=40,height=10)
+
+txt.grid(column=0,row=0)
+
+window.mainloop()
+
+The result as you can see:
+
+Set scrolledtext content
+
+To set scrolledtext content, you can use the insert method like this:
+
+txt.insert(INSERT,'You text goes here')
+
+Delete/Clear scrolledtext content
+
+To clear the contents of a scrolledtext widget, you can use delete method like this:
+
+txt.delete(1.0,END)
+
+Great!!
+Create a MessageBox
+
+To show a message box using Tkinter, you can use messagebox library like this:
+
+from tkinter import messagebox
+
+messagebox.showinfo('Message title','Message content')
+
+Pretty easy!!
+
+Let’s show a message box when the user clicks a button.
+
+from tkinter import *
+
+from tkinter import messagebox
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+def clicked():
+
+messagebox.showinfo('Message title', 'Message content')
+
+btn = Button(window,text='Click here', command=clicked)
+
+btn.grid(column=0,row=0)
+
+window.mainloop()
+
+When you click the button, an info messagebox will appear.
+Show warning and error messages
+
+You can show a warning message or error message the same way. The only thing that needs to be changed is the message function
+
+messagebox.showwarning('Message title', 'Message content') #shows warning message
+
+messagebox.showerror('Message title', 'Message content') #shows error message
+Show askquestion dialogs
+
+To show a yes no message box to the user, you can use one of the following messagebox functions:
+
+from tkinter import messagebox
+
+res = messagebox.askquestion('Message title','Message content')
+
+res = messagebox.askyesno('Message title','Message content')
+
+res = messagebox.askyesnocancel('Message title','Message content')
+
+res = messagebox.askokcancel('Message title','Message content')
+
+res = messagebox.askretrycancel('Message title','Message content')
+
+You can choose the appropriate message style according to your needs. Just replace the showinfo function line from the previous line and run it.
+
+Also, you can check what button was clicked using the result variable
+
+If you click OK or yes or retry, it will return True value, but if you choose no or cancel, it will return False.
+
+The only function that returns one of three values is askyesnocancel function, it returns True or False or None.
+Add a SpinBox (numbers widget)
+
+To create a Spinbox widget, you can use Spinbox class like this:
+
+spin = Spinbox(window, from_=0, to=100)
+
+Here we create a Spinbox widget and we pass the from_ and to parameters to specify the numbers range for the Spinbox.
+
+Also, you can specify the width of the widget using the width parameter:
+
+spin = Spinbox(window, from_=0, to=100, width=5)
+
+Check the complete example:
+
+from tkinter import *
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+spin = Spinbox(window, from_=0, to=100, width=5)
+
+spin.grid(column=0,row=0)
+
+window.mainloop()
+
+You can specify the numbers for the Spinbox instead of using the whole range like this:
+
+spin = Spinbox(window, values=(3, 8, 11), width=5)
+
+Here the Spinbox widget only shows these 3 numbers only 3, 8 and 11.
+Set default value for Spinbox
+
+To set the Spinbox default value, you can pass the value to the textvariable parameter like this:
+
+var =IntVar()
+
+var.set(36)
+
+spin = Spinbox(window, from_=0, to=100, width=5, textvariable=var)
+
+Now, if you run the program, it will show 36 as a default value for the Spinbox.
+Add a Progressbar widget
+
+To create a progress bar, you can use the progressbar class like this:
+
+from tkinter.ttk import Progressbar
+
+bar = Progressbar(window, length=200)
+
+You can set the progress bar value like this:
+
+bar['value'] = 70
+
+You can set this value based on any process you want like downloading a file or completing a task.
+Change Progressbar color
+
+Changing Progressbar color is a bit tricky, but super easy.
+
+First, we will create a style and set the background color and finally set the created style to the Progressbar.
+
+Check the following example:
+
+from tkinter import *
+
+from tkinter.ttk import Progressbar
+
+from tkinter import ttk
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+window.geometry('350x200')
+
+style = ttk.Style()
+
+style.theme_use('default')
+
+style.configure("black.Horizontal.TProgressbar", background='black')
+
+bar = Progressbar(window, length=200, style='black.Horizontal.TProgressbar')
+
+bar['value'] = 70
+
+bar.grid(column=0, row=0)
+
+window.mainloop()
+
+And the result will be like this:
+
+Add a filedialog (file & directory chooser)
+
+To create a file dialog (file chooser), you can use the filedialog class like this:
+
+from tkinter import filedialog
+
+file = filedialog.askopenfilename()
+
+After you choose a file and click open, the file variable will hold that file path.
+
+Also, you can ask for multiple files like this:
+
+files = filedialog.askopenfilenames()
+Specify file types (filter file extensions)
+
+You can specify the file types for a file dialog using filetypes parameter, just specify the extensions in tubles.
+
+file = filedialog.askopenfilename(filetypes = (("Text files","*.txt"),("all files","*.*")))
+
+You can ask for a directory using askdirectory method:
+
+dir = filedialog.askdirectory()
+
+You can specify the initial directory for the file dialog by specifying the initialdir like this:
+
+from os import path
+
+file = filedialog.askopenfilename(initialdir= path.dirname(__file__))
+
+Easy!!
+Add a Menu bar
+
+To add a menu bar, you can use menu class like this:
+“crayon-5a6ed64ac76ec001310365″ class=”crayon-syntax crayon-theme-xcode crayon-font-monaco crayon-os-pc print-yes notranslate” data-settings=” minimize scroll-mouseover”
+
+from tkinter import Menu
+
+menu = Menu(window)
+
+menu.add_command(label='File')
+
+window.config(menu=menu)
+
+First, we create a menu, then we add our first label, and finally, we assign the menu to our window.
+
+You can add menu items under any menu by using add_cascade() function like this:
+
+menu.add_cascade(label='File', menu=new_item)
+
+So our code will be like this:
+
+from tkinter import *
+
+from tkinter import Menu
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+menu = Menu(window)
+
+new_item = Menu(menu)
+
+new_item.add_command(label='New')
+
+menu.add_cascade(label='File', menu=new_item)
+
+window.config(menu=menu)
+
+window.mainloop()
+
+Using this way, you can add many menu items as you want.
+
+from tkinter import *
+
+from tkinter import Menu
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+menu = Menu(window)
+
+new_item = Menu(menu)
+
+new_item.add_command(label='New')
+
+new_item.add_separator()
+
+new_item.add_command(label='Edit')
+
+menu.add_cascade(label='File', menu=new_item)
+
+window.config(menu=menu)
+
+window.mainloop()
+
+Here we add another menu item called Edit with a menu separator.
+
+You may notice a dashed line at the beginning, well, if you click that line, it will show the menu items in a small separate window.
+
+You can disable this feature by disabling the tearoff feature like this:
+
+new_item = Menu(menu, tearoff=0)
+
+Just replace the new_item in the above example with this one and it won’t show the dashed line anymore.
+
+I don’t need to remind you that you can type any code that works when the user clicks on any menu item by specifying the command property.
+
+new_item.add_command(label='New', command=clicked)
+Add a Notebook widget (tab control)
+
+To create a tab control, there are 3 steps to do so.
+
+    First, we create a tab control using Notebook class
+    Create a tab using Frame class.
+    Add that tab to the tab control.
+    Pack the tab control so it becomes visible in the window.
+
+from tkinter import *
+
+from tkinter import ttk
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+tab_control = ttk.Notebook(window)
+
+tab1 = ttk.Frame(tab_control)
+
+tab_control.add(tab1, text='First')
+
+tab_control.pack(expand=1, fill='both')
+
+window.mainloop()
+
+You can add many tabs as you want the same way.
+Add widgets to Notebooks
+
+After creating tabs, you can put widgets inside these tabs by assigning the parent property to the desired tab.
+
+from tkinter import *
+
+from tkinter import ttk
+
+window = Tk()
+
+window.title("Welcome to LikeGeeks app")
+
+tab_control = ttk.Notebook(window)
+
+tab1 = ttk.Frame(tab_control)
+
+tab2 = ttk.Frame(tab_control)
+
+tab_control.add(tab1, text='First')
+
+tab_control.add(tab2, text='Second')
+
+lbl1 = Label(tab1, text= 'label1')
+
+lbl1.grid(column=0, row=0)
+
+lbl2 = Label(tab2, text= 'label2')
+
+lbl2.grid(column=0, row=0)
+
+tab_control.pack(expand=1, fill='both')
+
+window.mainloop()
+
+Add spacing for widgets (padding)
+
+You can add padding for your controls to make it looks well organized using padx and pady properties.
+
+Just pass padx and pady to any widget and give them a value.
+
+lbl1 = Label(tab1, text= 'label1', padx=5, pady=5)
+
+Just that simple!!
+
+In this tutorial, we saw many Python GUI examples using Tkinter library and we saw how easy it’s to develop graphical interfaces using it.
+
+This tutorial covers main aspects of Python GUI development not all of them. There is no tutorial or a book can cover everything.
+
+I hope you find these examples useful. Keep coming back.
+
+Thank you.
+
+likegeeks.com
+About filozof
+View all posts by filozof →	
+FeedBurner
+
+Subscribe to our e-mail newsletter to receive updates.
+Related Posts:
+
+    Doxygen 1.9.3 duyuruldu
+    Debian 11 “Bullseye”ye VLC Media Player nasıl kurulur?
+    Apache NetBeans 12.6 duyuruldu
+    Debian 11 “Bullseye”’ye Gimp nasıl kurulur?
+    Apache NetBeans 12.5 duyuruldu
+
+Graphical, ide, interface, Python GUI, Tkinter, user, window
+Kernel’in 4.9.82 uzun süreli destek sürümü duyuruldu
+Manjaro Linux 17.1.5 duyuruldu
+0
+Article Rating
+Subscribe
+Login
+guest
+
+
+This site uses Akismet to reduce spam. Learn how your comment data is processed.
+2 Yorum
+Oldest
+Engin
+Engin
+2 yıl önce
+
+Fonksiyon içinde kullanılan bir butona bastığında sadece True dondurulebilir mi? Yani command ile başka bir fonksiyona göndermeden…
+B1 = Button(root, text = “Butona bas”, ……..)
+B1.pack()
+if B1 == True:
+L1 = Label(root, text = ” Butona basıldı”)
+L1.pack()
+
+Gibi
+0
+Yanıtla
+filozof
+Yazar
+filozof(@filozof)
+2 yıl önce
+Reply to  Engin
+
+Engin, bu tür işlere çok zaman ayıramıyorum. Ancak bu ve benzeri sorularına gerçekten doyurucu cevap alabileceğin bir kaynak önereyim: Python için Türkçe Kılavuz Sürüm 3. Selamlar.
+0
+Yanıtla
+Creative Commons
+Bu sitedeki çalışmalar Creative Commons Attribution-Gayriticari-NoDerivs 3.0 Unported Lisansı ile lisanslanmıştır.
+debianTR
+Support freedom
+Support freedom
+Türkiye İnterneti’nin Babası Doç. Dr. Mustafa AKGÜL anısına
+
+
+
+Son Yazılar
+
+    Manjaro 2022-01-02 duyuruldu
+    KeePass 1.40 duyuruldu
+    Ubuntu 22.04 LTS “Jammy Jellyfish”in sürüm takvimi yayımlandı
+    EasyOS 3.1.19 duyuruldu
+    GNU Alive 2.0.5 duyuruldu
+    GNU Mailutils 3.14 duyuruldu
+    GNU Pies 1.7 duyuruldu
+    GNU Rush 2.2 duyuruldu
+    GTK 3’e taşınan Pinta 2.0 duyuruldu
+    CentOS Linux 8 serisi 31 Aralık 2021’de ömrünün sonuna ulaştı
+
+debianTR
+Close Windows, Open Doors
+Son Yorumlar
+
+    Pardus 16 yaşında için Altan Yücedağ
+    SysVinit 3.01 duyuruldu için cevdet
+    Tux Paint 0.9.27 duyuruldu için Kamil Gündüz
+    Rust programlama dilinin 1.56.1 sürümü çıktı için İnterroobang
+    Kali Linux’ta artık varsayılan kullanıcı root değil için eray akgün
+    AcademiX GNU/Linux 2.7 duyuruldu için filozof
+    AcademiX GNU/Linux 2.7 duyuruldu için Birol Özekin
+    Ubuntu Kylin 20.04 LTS duyuruldu için faradundamarti
+    Ubuntu Kylin 20.04 LTS duyuruldu için Bayar
+    Debian 11 “Bullseye”’ye Opera tarayıcı nasıl kurulur? için Altan YÜCEDAĞ
+
+GNU
+Debian GNU/Linux
+Etiketler
+anonimlik API açık kaynak açık kaynak kodlu Calamares debian Debian GNU/Linux Debian GNU/Linux tabanlı Docker donanım hızlandırma En son kararlı çekirdek Etkileşimli 3D grafik render freedesktop.org Geliştirme & kararsız çekirdek gizlilik gnome GNOME masaüstü ortamı GNU/Linux GNU Genel Kamu Lisansı GNU Projesi güvenlik güvenlik aracı hata düzeltmeleri kde KDE Plasma kernel linux mate Perl betiği Rasmus Lerdorf Sabit disk klonlamak Steven Shiau sürüm takvimi The Document Foundation (TDF) Tor ağı ubuntu Ubuntu tabanlı Unix Uzun süreli destek veri tabanı windows xfce Özgür çekirdek özgür yazılım
+getGNU
+WHY GNU/LINUX IS BETTER? [ Why GNU/Linux is better? ]
+getGNU Twitter hesabı, twitter.com/getGNU adresi üzerinden etkinleştirilmiştir. Artık, Twitter sayfamız üzerinden de gönderilerimizi takip edebilirsiniz. Dünyanın her yerinden insanları birbirine bağladığı için TIME Dergisi tarafından övülen Mark Zuckerberg'in Facebook'u ile gizlilik için oluşturduğu tehdit nedeniyle tüm ilgimizi kesmiş bulunuyoruz. Facebook kullanıcılarını "beğen" butonuyla izlemeye alan Zuckerberg'in "beğen" butonunu kullanan sitelerin kullanıcısı olmayan kişiler hakkında dahi bilgi toplaması mümkün olmaktadır. Bu nedenle, bizi Facebook üzerinde bulamayacaksınız.
+fsf.org
+Support freedom
+Windows'a Mecbur Değilsin!
+Kategoriler
+
+    Belgeler (337)
+        E-Dergi (211)
+        E-Kitap (126)
+    Donanım (400)
+    GNU/Linux (10.804)
+        GNU/Linux İpuçları (561)
+        Linux (2.798)
+    İnternet (2.477)
+    Programlama (1.811)
+    Video (185)
+        Gimp (24)
+        Istanbul Coders (21)
+        NedirTV (11)
+        Oyun (65)
+            Minecraft (28)
+            Portal (8)
+            Sir You Are Being Hunted (15)
+        Python (1)
+    Yazılım (6.062)
+        Çoklu Ortam (537)
+        Grafik (389)
+        Ofis (934)
+
+GNU/Linux
+Free Software, Free Society
+Debian Türkiye
+LibreOffice
+TruvaLinux
+TruvaLinux
+Copyleft
+Debian GNU/Linux
+Arşivler
+
+    Ocak 2022 (34)
+    Aralık 2021 (288)
+    Kasım 2021 (244)
+    Ekim 2021 (277)
+    Eylül 2021 (239)
+    Ağustos 2021 (295)
+    Temmuz 2021 (303)
+    Haziran 2021 (294)
+    Mayıs 2021 (297)
+    Nisan 2021 (279)
+    Mart 2021 (299)
+    Şubat 2021 (301)
+    Ocak 2021 (282)
+    Aralık 2020 (239)
+    Kasım 2020 (251)
+    Ekim 2020 (278)
+    Eylül 2020 (238)
+    Ağustos 2020 (276)
+    Temmuz 2020 (274)
+    Haziran 2020 (278)
+    Mayıs 2020 (325)
+    Nisan 2020 (302)
+    Mart 2020 (322)
+    Şubat 2020 (275)
+    Ocak 2020 (263)
+    Aralık 2019 (276)
+    Kasım 2019 (260)
+    Ekim 2019 (257)
+    Eylül 2019 (269)
+    Ağustos 2019 (321)
+    Temmuz 2019 (308)
+    Haziran 2019 (258)
+    Mayıs 2019 (261)
+    Nisan 2019 (197)
+    Mart 2019 (268)
+    Şubat 2019 (226)
+    Ocak 2019 (216)
+    Aralık 2018 (292)
+    Kasım 2018 (238)
+    Ekim 2018 (204)
+    Eylül 2018 (213)
+    Ağustos 2018 (192)
+    Temmuz 2018 (189)
+    Haziran 2018 (186)
+    Mayıs 2018 (204)
+    Nisan 2018 (179)
+    Mart 2018 (211)
+    Şubat 2018 (154)
+    Ocak 2018 (178)
+    Aralık 2017 (212)
+    Kasım 2017 (225)
+    Ekim 2017 (208)
+    Eylül 2017 (184)
+    Ağustos 2017 (199)
+    Temmuz 2017 (197)
+    Haziran 2017 (203)
+    Mayıs 2017 (173)
+    Nisan 2017 (186)
+    Mart 2017 (195)
+    Şubat 2017 (145)
+    Ocak 2017 (167)
+    Aralık 2016 (160)
+    Kasım 2016 (128)
+    Ekim 2016 (185)
+    Eylül 2016 (183)
+    Ağustos 2016 (220)
+    Temmuz 2016 (241)
+    Haziran 2016 (168)
+    Mayıs 2016 (165)
+    Nisan 2016 (148)
+    Mart 2016 (160)
+    Şubat 2016 (147)
+    Ocak 2016 (183)
+    Aralık 2015 (180)
+    Kasım 2015 (139)
+    Ekim 2015 (148)
+    Eylül 2015 (147)
+    Ağustos 2015 (139)
+    Temmuz 2015 (133)
+    Haziran 2015 (118)
+    Mayıs 2015 (125)
+    Nisan 2015 (129)
+    Mart 2015 (124)
+    Şubat 2015 (123)
+    Ocak 2015 (153)
+    Aralık 2014 (142)
+    Kasım 2014 (139)
+    Ekim 2014 (171)
+    Eylül 2014 (132)
+    Ağustos 2014 (98)
+    Temmuz 2014 (133)
+    Haziran 2014 (130)
+    Mayıs 2014 (113)
+    Nisan 2014 (92)
+    Mart 2014 (108)
+    Şubat 2014 (106)
+    Ocak 2014 (64)
+    Aralık 2013 (130)
+    Kasım 2013 (87)
+    Ekim 2013 (72)
+    Eylül 2013 (47)
+    Ağustos 2013 (56)
+    Temmuz 2013 (35)
+    Haziran 2013 (54)
+    Mayıs 2013 (58)
+    Nisan 2013 (55)
+    Mart 2013 (53)
+    Şubat 2013 (47)
+    Ocak 2013 (49)
+    Aralık 2012 (48)
+    Kasım 2012 (52)
+    Ekim 2012 (56)
+    Eylül 2012 (52)
+    Ağustos 2012 (60)
+    Temmuz 2012 (40)
+    Haziran 2012 (49)
+    Mayıs 2012 (44)
+    Nisan 2012 (35)
+    Mart 2012 (32)
+    Şubat 2012 (39)
+    Ocak 2012 (28)
+    Aralık 2011 (23)
+    Kasım 2011 (23)
+    Ekim 2011 (23)
+    Eylül 2011 (18)
+    Ağustos 2011 (27)
+    Temmuz 2011 (18)
+    Haziran 2011 (24)
+    Mayıs 2011 (20)
+    Nisan 2011 (29)
+    Mart 2011 (32)
+    Şubat 2011 (23)
+    Ocak 2011 (24)
+    Aralık 2010 (33)
+    Kasım 2010 (24)
+    Ekim 2010 (32)
+    Eylül 2010 (37)
+    Ağustos 2010 (19)
+    Temmuz 2010 (29)
+    Haziran 2010 (22)
+    Mayıs 2010 (20)
+    Nisan 2010 (11)
+    Mart 2010 (15)
+    Şubat 2010 (15)
+    Ocak 2010 (8)
+    Aralık 2009 (9)
+    Kasım 2009 (12)
+    Ekim 2009 (13)
+    Eylül 2009 (10)
+    Ağustos 2009 (11)
+    Temmuz 2009 (16)
+    Haziran 2009 (10)
+    Mayıs 2009 (6)
+    Nisan 2009 (15)
+    Mart 2009 (10)
+    Şubat 2009 (16)
+    Ocak 2009 (28)
+    Aralık 2008 (33)
+    Kasım 2008 (28)
+    Ekim 2008 (75)
+    Eylül 2008 (40)
+    Ağustos 2008 (20)
+    Temmuz 2008 (23)
+    Haziran 2008 (23)
+    Mayıs 2008 (21)
+    Nisan 2008 (14)
+    Mart 2008 (2)
+    Şubat 2008 (3)
+    Ocak 2008 (1)
+    Aralık 2007 (1)
+    Ekim 2007 (4)
+    Eylül 2007 (12)
+    Ağustos 2007 (8)
+    Temmuz 2007 (2)
+    Nisan 2007 (1)
+    Aralık 2006 (1)
+    Kasım 2006 (1)
+
+Linkler 1
+Acer
+Açık Günlük
+Alpine Linux
+Android
+Antergos
+antiX
+Apple
+APT
+ArchBang
+Arch Linux
+Asus
+AV Linux
+BackBox
+belgeler.gen.tr
+Bilişim Sözlüğü
+Blag
+Blender
+Bodhi
+Bridge
+Calculate Linux
+Calligra
+Casper
+CentOS
+Chakra GNU/Linux
+ClearOS
+Clonezilla
+Cinnamon
+Cnet
+Creative
+Creative Commons
+CrunchBang
+Çağatay ÇEBİ
+Damn Small Linux
+Debian GNU/Linux
+Debian Security
+Debian Wiki
+Debian Türkiye Forum
+Debian Türkiye Wiki
+Deepin
+Dell
+digiKam
+Distrowatch
+DoudouLinux
+DragonFly
+Dragora
+DreamStudio
+Drupal
+Duckduckgo
+Dynebolic
+elementary OS
+Elive
+Enlightenment
+Emmabuntüs
+eniXma
+Exper
+ExTiX
+Fedora
+FreeBSD
+Free(code)
+FreeNAS
+Frugalware
+Free Software Foundation (FSF)
+FSF Europe
+FSF Twitter
+Gentoo
+getGNU Twitter
+GhostBSD
+Git
+gNewSense
+Greenie
+GNOME
+GNU
+GNU Binutils
+GNU Compiler Collection GCC
+GNU Solidario
+GCC Twitter
+GNU-TR Sözlük
+Google
+gotux
+Grundig
+GuixSD
+HP
+Hyperbola
+Inkscape
+Intel
+Intel Türkiye
+internet.org.tr
+isoHunt
+İstihza
+Java
+Joomla
+KAK Kamu Açık Kaynak Konferansı
+Kali
+Kanotix
+KDE
+Kernel
+Knoppix
+Korora
+Kubuntu
+Kwheezy
+Lenovo
+libreCMC
+LibreOffice
+LibreOffice Türkiye
+Libreoffice Twitter
+LibrePlanet
+Linux Akademi
+Linux.com
+LinuxBBQ
+LinuxCounter
+Linux Games
+Linux Journal
+Linux Lite
+Linux Links
+Linux Magazine
+Linux Mint
+Linux Scoop
+Linux Today
+LKD
+LKD Linux Gezegeni Kişisel Günlükler
+LKD Linux Gezegeni LKD Günlükleri
+LKD Linux Gezegeni Topluluk Günlükleri
+LKD Linux Gezegeni İngilizce Günlükler
+Logitech
+Lubuntu
+LXLE
+Macpup
+Mageia
+Mageia Türkçe Blog
+Mandriva
+Manjaro
+Mate
+Mecbur Değilsiniz!
+MEPIS
+MSI
+Monster
+Mozilla Firefox
+Mozilla Thunderbird
+Musix GNU+Linux
+Mysql
+Linkler 2
+MythTV
+Netrunner
+Nvidia
+Noobslab
+Openbox
+OpenBSD
+openclipart
+OpenELEC
+OpenMandriva
+OpenOffice
+OpenOffice Türkiye
+OpenPrinting
+Open Source Enterprise Centre
+openSUSE
+Oracle
+Oracle Linux
+Özgür Yazılım A.Ş.
+Qt
+Packard Bell
+PCManFM
+Pardus
+Parabola
+Parsix
+Parted Magic
+PC-BSD
+PCLinuxOS
+Pear Linux
+Perl
+Peppermint OS
+pfSense
+Phoronix
+PHP
+PHP Twitter
+phpMyAdmin
+phpMyAdmin Twitter
+Pioneer
+Pinguy OS
+Pisi Linux
+Planet GNOME
+planet.gnu.org
+PlayOnLinux
+Point Linux
+Porteus
+Puppy
+PureOS
+Python
+Raspberry
+Raspberry Twitter
+Raspbian
+Raspberry TR
+Reddit
+Red Hat
+Rescatux
+Robolinux
+ROSA
+Ruby
+Sabayon
+SalentOS
+Salix OS
+Samba
+Samsung
+Scientific
+Scribus
+Seagate
+SeaMonkey
+Semplice
+Sesli Sözlük
+Shotwell
+siduction
+Simplicity
+Slackel
+Slackware
+Slax
+SliTaz
+SMF
+Solaris
+SolydX
+Snowlinux
+Sony
+Sourceforge
+SparkyLinux
+Speedtest
+SQLite
+SteamOS
+SUSE
+Superb Mini Server
+SuperX
+Sylpheed
+Syslogs
+systemd
+SystemRescueCd
+Tails
+Tango Studio
+Tech Drive-in
+Tecmint: Linux Howtos, Tutorials & Guides
+Technisat
+The Mukt
+Tiny Core
+Tor Browser
+Toshiba
+Trisquel
+Truva Linux
+Truva Linux Forum
+Truva Linux Gezegen
+Truva Linux Gezegen Topluluklar
+Truva Linux Wiki
+Tuxweet
+twister
+UberStudent
+Ubuntu
+Ubuntu GNOME
+UbuntuKylin
+Ubuntu Studio
+Ubuntu Türkiye
+Ubuntu Türkiye Wiki
+Ulakbim
+Ultimate Edition
+Unity Linux
+Univention Corporate Server
+Unixmen
+Ututo
+VectorLinux
+Vine Linux
+VirtualBox
+Voyager
+wattOS
+Webconverger
+Web Upd8
+Wifislax
+WineHQ
+Wordpress
+Wordpress Türkiye
+Xfce
+Xubuntu
+YouTube
+Zentyal
+Zenwalk
+ZevenOS
+Zorin OS
+RSS getGNU
+
+    Manjaro 2022-01-02 duyuruldu
+    Arch Linux tabanlı bir GNU/Linux dağıtımı olan Manjaro’nun 2022-01-02 sürümü Philip Müller tarafından duyuruldu. Manjaro’nun bir başka kararlı sürümünü duyurmaktan memnun olduklarını söyleyen Muller; çekirdeklerin çoğunun güncellendiğini ifade etti. Python 3.10 yeniden yapılandırmaları nedeniyle Arch’tan 2560 paket çektiklerini söyleyen Müller; gözden kaçırılmış olabilecek paketlerle ilgili sorunların bildirilmesini rica etti. pacman-mirrors 4.23.1 6 ile çok sayıda küçük […]
+    KeePass 1.40 duyuruldu
+    Parola oluşturmak ve parolaları daha güvenli biçimde saklamak için kullanılan bir yazılım olan KeePass‘ın 1.40 sürümü duyuruldu. Bunun kararlı bir sürüm olduğu vurgulanırken, 1.x serisinden bir sürümü kullanmakta olan kullanıcıların, 1.40’a yükseltmesinin önerildiği belirtildi. Yeni sürüm, temel olarak performans iyileştirmeleri ve kullanıcı arayüzü geliştirmeleri ile diğer çeşitli küçük yeni özellikler ve iyileştirmeler içeriyor. Çoğu Windows […]
+    Ubuntu 22.04 LTS “Jammy Jellyfish”in sürüm takvimi yayımlandı
+    GNOME 42.0 kurulu olarak gelmesi beklenen Jammy Jellyfish kod adlı Ubuntu 22.04 LTS’nin, bilindiği gibi, 21 Nisan 2022’de duyurulması planlanıyor. Yeni bir LTS (uzun süreli destek) sürümü olan Ubuntu 22.04 LTS’nin; PHP 8.1, OpenSSL 3.0, Golang 1.18 ve varsayılan olarak Python 3.10.0 ile gelmesi bekleniyor. Hatırlanacağı gibi, Ubuntu 22.04 LTS’nin geliştirilmesine 18 Ekim 2021‘de başlanmıştı. […]
+    EasyOS 3.1.19 duyuruldu
+    Puppy Linux‘un geliştirdiği teknolojilerin ve paket biçimlerinin çoğunu kullanan Avustralya kökenli deneysel bir GNU/Linux dağıtımı olan EasyOS‘un 3.1.19 sürümü, Barry Kauler tarafından duyuruldu. EasyOS’un deneysel bir dağıtım ve “yeni bir paradigma” olduğunu belirten Kauler; Puppy Linux ve Quirky Linux’tan en iyi fikirlerin bir karışımını elde ettiklerini ve güvenlik, sürdürülebilirlik ve kullanım kolaylığı konusunda temel bir […]
+    GNU Alive 2.0.5 duyuruldu
+    Periyodik bir ping programı olan GNU Alive’in 2.0.5 sürümü, Thien-Thi Nguyen tarafından duyuruldu. Nguyen; 2.0.4 sürümünden yalnızca bir gün sonra yeni bir sürüm duyurmak zorunda kalmalarının bir hata düzeltme işlemine dayandığını söyledi. “Ping -n -i PERIOD HOST” ile benzer şekilde çalıştığı belirtilen yazılımın, kabuk komut isteminde rahatça kod yazanlar için çok da gerekli olmadığı ifade […]
+    GNU Mailutils 3.14 duyuruldu
+    E-postaları işlemek için zengin araçlar ve işlem programları seti sunan GNU Mailutils’in 3.14 sürümü, Sergey Poznyakoff tarafından duyuruldu. Neredeyse posta ile ilgili herhangi bir görevi yapmak için bir dizi kitaplık sağlayan yazılımın, bir posta filtreleme aracı ve GNU Emacs MH-E modu ile uyumlu eksiksiz bir MH hizmet programı içerdiğini söyleyen Poznyakoff; düzenli kullanıcılar, sistem yöneticileri […]
+    GNU Pies 1.7 duyuruldu
+    0,“P-yes” biçiminde okunan ve “program çağırma ve yürütme şefi” anlamına gelen GNU Pies‘in 1.7 sürümü, Sergey Poznyakoff tarafından duyuruldu. Poznyakoff; harici programların yürütülmesini başlatıp onları denetleyen GNU Pies’in yeni sürümünde, herhangi bir sayıda başlatma veya kapatma bileşeni tanımlanabileceğini söyledi. Her bir bileşenin kullanım şekli ve özellikle de sona ermesi üzerine gerçekleştirilecek eylem, bileşen yöneticisi tarafından […]
+    GNU Rush 2.2 duyuruldu
+    Sözgelimi savannah.gnu.org gibi kaynaklarına sınırlı uzaktan erişim sağlayan siteler için makineye yalnızca uzaktan erişime izin verilen kullanıcılara yönelik olarak kullanıcı giriş kabuğu olarak yapılandırılan GNU Rush‘ın 2.2 sürümü, Sergey Poznyakoff tarafından duyuruldu. Yeni sürümün, son yayınlanan 2.1 sürümünde ortaya çıkan birkaç hatayı düzelttiğini söyleyen Poznyakoff; önceki sürümlerle geriye dönük uyumluluğun korunduğunu ve eski yapılandırma sözdiziminin […]
+    GTK 3’e taşınan Pinta 2.0 duyuruldu
+    Microsoft Windows ile sınırlı benzer bir görüntü düzenleme programı olan Paint.NET’ten esinlenilen açık kaynak kodlu, platformlar arası bir bitmap resim düzenleme yazılımı olan Pinta‘nın 2.0 sürümü duyuruldu. Pinta 1.7.1’in yayınlanmasından sonra bir aydan biraz daha uzun bir sürenin ardından gelen ve nihayet daha modern bir görünüm ve yeni işlevsellik için boyama programını GTK+ 3 ve […]
+    CentOS Linux 8 serisi 31 Aralık 2021’de ömrünün sonuna ulaştı
+    Red Hat Enterprise Linux ile % 100 uyumlu bir GNU/Linux dağıtımı olan CentOS’un, 16 Kasım 2021‘de duyurulan son sürümü 8.5.2111’in en son sürüm olacağı ve ileriye doğru herhangi bir güncelleme de yapılmayacağı duyurulmuştu. Bu vesileyle, o günlerde yapılan duyuru aynen tekrarlanarak; CentOS Linux 8 serisinin 31 Aralık 2021’de ömrünün sonuna (EOL) ulaşacağı belirtiliyordu. Biz de […]
+    Arch Linux 2022.01.01 duyuruldu
+    Arch Linux’un her ayın başında düzenli olarak kullanıma sunduğu popüler rolling-release CD’lerinin sonuncusu kullanıma sunuldu. Güçlü ve özelleştirilebilir sürüm olan Arch Linux 2022.01.01; 5.15.12 Linux çekirdeği üzerine inşa edilmiş bulunuyor. Bilindiği gibi, Arch Linux geliştirme ekibi; her ay hatalarını giderip geliştirdiği sisteme, güncellenmiş pek çok paketi ekleyip yeni bir çekirdek üzerine inşa ederek yeni kurulum […]
+    Thinstation 6.2.13 duyuruldu
+    Web’de gezinme, çıkarılabilir medya ve yazıcıları yönetme gibi temel işlemler için kendi başına çalışan, ancak büyük uygulamalar ve istemcilerin yönetimi için sunuculara dayanan modern bir istemci olarak üretilen Yeni Zelanda kökenli dağıtım, Thinstation‘un 6.2.13 sürümü duyuruldu. Güvenlik güncellemeleri yapılmış olarak gelen sistem, çeşitli geliştirmeler ve düzeltmeler içeriyor. Basit ve küçük, ancak çok güçlü bir açık kaynak […]
+    Symfony 4.4.36 duyuruldu
+    2005 yılından beri geliştirilen açık kaynak kodlu bir PHP MVC web uygulama çatısı olan Symfony‘nin 4.4.36 sürümü, Fabien Potencier tarafından duyuruldu. Fabien Potencier tarafından geliştirilen ve MIT Lisansı ile kullanıma sunulan yazılım; Unix, Mac OS ve Windows platformlarında çalışabilmektedir. Symfony 6.0 serisinin, SensioLabs tarafından desteklendiği belirtilirken, Symfony’nin yaratıcısı olarak SensioLabs’ın; web uygulaması geliştirme projelerinin başarısını […]
+    Garuda Linux 220101 duyuruldu
+    Arch Linux’a dayalı olarak gelen ama Arch Linux‘tan farklı olarak, kolay kurulum için bir grafik yükleyici (Calamares) ve sistemi yönetmek için diğer gelişmiş grafik araçları ile birlikte gelen Garuda Linux‘un “White-tailed Eagle” kod adlı 220101 sürümü duyuruldu. Sürüme ait ISO kalıpları indirilmek üzere yansılarda yerini aldı. Birçok performans artırıcı ince ayar içeren performans odaklı bir […]
+    Snal Linux 1.12 duyuruldu
+    Arch Linux tabanlı, ABD kökenli küçük bir GNU/Linux dağıtımı olan Snal Linux’un 1.12 sürümü, Jeremy Wakeman tarafından duyuruldu. 5.15.11.arch2 Linux çekirdeği üzerine yapılandırılan sürüm; Firefox 95.0.2, alsa-lib 1.2.6.1, clonezilla 3.35.2, glibc 2.33, e2fsprogs 1.46.4, file 5.41, lynx 2.8.9, pcmanfm 1.3.2 gibi çeşitli paketler içeriyor. İ3 pencere yöneticisiyle gelen Snal Linux, Firefox web tarayıcısının yanı sıra […]
+
+FiL®Z®F
+
+FiL®Z®F
+
+Free Software Foundation: Free software, free society
+2
