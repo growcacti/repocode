@@ -1,39 +1,31 @@
 import tkinter as tk
 
-def remove_comments():
-    try:
-        # Get the highlighted text
-        input_code = input_text.get(tk.SEL_FIRST, tk.SEL_LAST).splitlines()
-    except tk.TclError:
-        # If nothing is highlighted, get all text
-        input_code = input_text.get("1.0", tk.END).splitlines()
+def remove_text_after_hash_every_line():
+    # Get the total number of lines in the Text widget
+    total_lines = int(textwidget.index('end-1c').split('.')[0])
+    
+    for line_number in range(1, total_lines + 1):
+        # Get the content of the current line
+        line_content = textwidget.get(f"{line_number}.0", f"{line_number}.end")
+        
+        # Find the position of the first '#' character in the line
+        hash_position = line_content.find('#')
+        
+        # If '#' is found, delete the text after it until the end of the line
+        if hash_position != -1:
+            textwidget.delete(f"{line_number}.{hash_position}", f"{line_number}.end")
 
-    cleaned_code = [line for line in input_code if not line.strip().startswith('#')]
-
-    # To replace only the highlighted area, delete it first then insert cleaned code
-    try:
-        input_text.delete(tk.SEL_FIRST, tk.SEL_LAST)
-        input_text.insert(tk.SEL_FIRST, "\n".join(cleaned_code))
-    except tk.TclError:
-        # If nothing was highlighted, replace all text
-        input_text.delete("1.0", tk.END)
-        input_text.insert("1.0", "\n".join(cleaned_code))
-
-# Set up the main window
+# Create the main window
 root = tk.Tk()
-root.title("Remove Python Comments")
+root.title("Text Editor")
 
-# Configure the grid
-root.grid_rowconfigure(0, weight=1)
-root.grid_columnconfigure(0, weight=1)
+# Create a Text widget
+textwidget = tk.Text(root, height=10, width=40)
+textwidget.pack(pady=20)
 
-# Create the input text area with grid
-input_text = tk.Text(root, height=15, width=50)
-input_text.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+# Create a Button widget, which calls the remove_text_after_hash_every_line function when clicked
+button = tk.Button(root, text="Remove Text After # in All Lines", command=remove_text_after_hash_every_line)
+button.pack(pady=10)
 
-# Create the button to remove comments
-remove_button = tk.Button(root, text="Remove Comments", command=remove_comments)
-remove_button.grid(row=1, column=0, columnspan=2, padx=10, pady=5, sticky="ew")
-
+# Start the Tkinter event loop
 root.mainloop()
-
